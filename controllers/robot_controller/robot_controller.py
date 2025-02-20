@@ -11,7 +11,7 @@ if __name__ == "__main__":
     # get the time step of the current world.
     # timestep = int(robot.getBasicTimeStep())
     timestep = 64
-    max_speed = 6.28  # angular_velocity
+    max_speed = 6.2831  # angular_velocity
     
     # Created Motor Instances
     front_right_motor = robot.getMotor('front_motor_1')
@@ -35,7 +35,7 @@ if __name__ == "__main__":
     back_left_motor.setVelocity(0.0)
     
     # Driving the Robot in a Polygon Shape
-    num_side = 4
+    num_side = 6
     length_side = 0.5  # 0.25
     rr = 1
     
@@ -46,8 +46,13 @@ if __name__ == "__main__":
     
     start_time = robot.getTime()
     
+    angles = [0.5236, 0.7854, 1.0472, 1.309, 1.5708, 3.1416]
+    # angles = [ x for i in range(180+1)]
+    
+    
     angle_of_rotation = 6.28/num_side
     distance_between_wheels = 0.156
+    
     rate_of_rotation = (rr * linear_velocity) / distance_between_wheels 
     duration_turn = angle_of_rotation / rate_of_rotation 
     

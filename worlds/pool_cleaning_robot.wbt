@@ -1,24 +1,46 @@
-#VRML_SIM R2025a utf8
+#VRML_SIM R2023b utf8
 
 EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2025a/projects/objects/backgrounds/protos/TexturedBackground.proto"
 EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2025a/projects/objects/backgrounds/protos/TexturedBackgroundLight.proto"
 EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2025a/projects/objects/floors/protos/RectangleArena.proto"
+EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2025a/projects/appearances/protos/Parquetry.proto"
+EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2025a/projects/appearances/protos/BrushedAluminium.proto"
 
 WorldInfo {
 }
 Viewpoint {
-  orientation 0.2664101950015208 0.5749366211965874 -0.7736106834876981 1.0793197697190398
-  position -1.1627749036360324 1.4867983451225752 1.279381697559354
+  orientation -0.5773502691896258 0.5773502691896258 0.5773502691896258 2.0944
+  position 6.319192531985347e-06 6.31921040107236e-06 3.879100774876192
 }
 TexturedBackground {
 }
 TexturedBackgroundLight {
 }
 RectangleArena {
-  floorSize 2 2
+  floorSize 2.5 2
+  floorAppearance Parquetry {
+    type "light strip"
+  }
+  wallAppearance BrushedAluminium {
+    colorOverride 0.239216 0.219608 0.27451
+  }
 }
 Robot {
   children [
+    InertialUnit {
+      translation 0 0 0.065
+      children [
+        Shape {
+          appearance PBRAppearance {
+            roughness 1
+            metalness 0
+          }
+          geometry Box {
+            size 0.01 0.01 0.01
+          }
+        }
+      ]
+    }
     DEF Body Pose {
       translation 0 0 0.04
       children [
@@ -36,6 +58,7 @@ Robot {
     }
     DEF front_wheel_1 HingeJoint {
       jointParameters HingeJointParameters {
+        position 41.03698741241184
         axis 0 1 0
         anchor 0.075 -0.078 0.025
       }
@@ -46,7 +69,7 @@ Robot {
       ]
       endPoint Solid {
         translation 0.075 -0.078 0.025
-        rotation 1 0 0 1.57
+        rotation -0.06942451646566902 0.7056814880375698 -0.7051197585904038 3.2803293384982664
         children [
           DEF wheel Shape {
             appearance PBRAppearance {
@@ -68,6 +91,7 @@ Robot {
     }
     DEF front_wheel_2 HingeJoint {
       jointParameters HingeJointParameters {
+        position 81.9159371049879
         axis 0 1 0
         anchor 0.075 0.078 0.025
       }
@@ -78,7 +102,7 @@ Robot {
       ]
       endPoint Solid {
         translation 0.075 0.078 0.025
-        rotation 1 0 0 1.57
+        rotation -0.9863938504281836 -0.11629422663295036 0.11620165527782413 4.699486103789016
         children [
           DEF wheel Shape {
             appearance PBRAppearance {
@@ -100,6 +124,7 @@ Robot {
     }
     DEF back_wheel_1 HingeJoint {
       jointParameters HingeJointParameters {
+        position 41.03698692065761
         axis 0 1 0
         anchor -0.075 -0.078 0.025
       }
@@ -110,7 +135,7 @@ Robot {
       ]
       endPoint Solid {
         translation -0.075 -0.078 0.025
-        rotation 1 0 0 1.57
+        rotation -0.06942434225492781 0.7056814966137569 -0.7051197671597633 3.2803289914744505
         children [
           DEF wheel Shape {
             appearance PBRAppearance {
@@ -132,6 +157,7 @@ Robot {
     }
     DEF back_wheel_2 HingeJoint {
       jointParameters HingeJointParameters {
+        position 81.91593665765944
         axis 0 1 0
         anchor -0.075 0.078 0.025
       }
@@ -142,7 +168,7 @@ Robot {
       ]
       endPoint Solid {
         translation -0.075 0.078 0.025
-        rotation 1 0 0 1.57
+        rotation -0.9863939017466559 -0.11629400882082853 0.11620143763908296 4.699486155811035
         children [
           DEF wheel Shape {
             appearance PBRAppearance {
@@ -195,7 +221,7 @@ Robot {
       name "eye_2"
     }
     DistanceSensor {
-      translation 0.03 -0.078 0.045
+      translation 0 -0.078 0.045
       rotation 0 0 1 -1.57
       children [
         DEF distance_sensor Shape {
@@ -209,17 +235,17 @@ Robot {
           }
         }
       ]
-      name "distance_sensor_right_1"
+      name "distance_sensor_side_right"
       boundingObject USE distance_sensor
       physics Physics {
       }
       lookupTable [
         0 0 0
-        0.2 1000 0
+        0.5 0.5 0
       ]
     }
     DistanceSensor {
-      translation 0.03 0.078 0.045
+      translation 0 0.078 0.045
       rotation 0 0 1 1.57
       children [
         DEF distance_sensor Shape {
@@ -233,18 +259,17 @@ Robot {
           }
         }
       ]
-      name "distance_sensor_left_1"
+      name "distance_sensor_side_left"
       boundingObject USE distance_sensor
       physics Physics {
       }
       lookupTable [
         0 0 0
-        0.2 1000 0
+        0.5 0.5 0
       ]
     }
     DistanceSensor {
-      translation -0.03 -0.078 0.045
-      rotation 0 0 1 -1.57
+      translation 0.125 0 0.045
       children [
         DEF distance_sensor Shape {
           appearance PBRAppearance {
@@ -257,90 +282,18 @@ Robot {
           }
         }
       ]
-      name "distance_sensor_right_2"
+      name "distance_sensor_front"
       boundingObject USE distance_sensor
       physics Physics {
       }
       lookupTable [
         0 0 0
-        0.2 1000 0
-      ]
-    }
-    DistanceSensor {
-      translation -0.03 0.078 0.045
-      rotation 0 0 1 1.57
-      children [
-        DEF distance_sensor Shape {
-          appearance PBRAppearance {
-            baseColor 0 1 0
-            roughness 1
-            metalness 0
-          }
-          geometry Box {
-            size 0.01 0.01 0.01
-          }
-        }
-      ]
-      name "distance_sensor_left_2"
-      boundingObject USE distance_sensor
-      physics Physics {
-      }
-      lookupTable [
-        0 0 0
-        0.2 1000 0
-      ]
-    }
-    DistanceSensor {
-      translation 0.125 0.025 0.045
-      rotation 0 0 1 0.5235996938995747
-      children [
-        DEF distance_sensor Shape {
-          appearance PBRAppearance {
-            baseColor 0 1 0
-            roughness 1
-            metalness 0
-          }
-          geometry Box {
-            size 0.01 0.01 0.01
-          }
-        }
-      ]
-      name "distance_sensor_front_left"
-      boundingObject USE distance_sensor
-      physics Physics {
-      }
-      lookupTable [
-        0 0 0
-        0.2 1000 0
-      ]
-    }
-    DistanceSensor {
-      translation 0.125 -0.025 0.045
-      rotation 0 0 1 -0.5235996938995747
-      children [
-        DEF distance_sensor Shape {
-          appearance PBRAppearance {
-            baseColor 0 1 0
-            roughness 1
-            metalness 0
-          }
-          geometry Box {
-            size 0.01 0.01 0.01
-          }
-        }
-      ]
-      name "distance_sensor_front_right"
-      boundingObject USE distance_sensor
-      physics Physics {
-      }
-      lookupTable [
-        0 0 0
-        0.2 1000 0
+        0.5 0.5 0
       ]
     }
   ]
   boundingObject USE Body
   physics Physics {
   }
-  controller "robot_controller_with_distance_sensor"
+  controller "robot_controller_2"
 }
