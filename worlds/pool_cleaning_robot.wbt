@@ -9,8 +9,9 @@ EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2025a/project
 WorldInfo {
 }
 Viewpoint {
-  orientation -0.5773502691896258 0.5773502691896258 0.5773502691896258 2.0944
-  position 6.319192531985347e-06 6.31921040107236e-06 3.879100774876192
+  orientation -0.5773502691896257 0.5773502691896257 0.5773502691896257 2.0943245915045035
+  position 0.00025394889738438733 1.8736840019974225e-05 3.230317714572583
+  follow "robot"
 }
 TexturedBackground {
 }
@@ -27,6 +28,105 @@ RectangleArena {
 }
 Robot {
   children [
+    Solid {
+      translation 0.33 -0.104 0.045
+      rotation 0 0 1 -0.588176
+      children [
+        DEF right_front_aluminium Shape {
+          appearance PBRAppearance {
+            baseColor 0.466667 0.462745 0.482353
+            roughness 1
+            metalness 0
+          }
+          geometry Box {
+            size 0.1302 0.01 0.01
+          }
+        }
+      ]
+      name "right_front_aluminium"
+      boundingObject USE right_front_aluminium
+      physics Physics {
+      }
+    }
+    Solid {
+      translation 0.33 0.104 0.045
+      rotation 0 0 1 0.588176
+      children [
+        DEF left_front_aluminium Shape {
+          appearance PBRAppearance {
+            baseColor 0.466667 0.462745 0.482353
+            roughness 1
+            metalness 0
+          }
+          geometry Box {
+            size 0.1302 0.01 0.01
+          }
+        }
+      ]
+      name "left_front_aluminium"
+      boundingObject USE left_front_aluminium
+      physics Physics {
+      }
+    }
+    Solid {
+      translation 0.202 0.1209 0.045
+      rotation 0 0 1 0.98262
+      children [
+        DEF sideleft_aluminium Shape {
+          appearance PBRAppearance {
+            baseColor 0.466667 0.462745 0.482353
+            roughness 1
+            metalness 0
+          }
+          geometry Box {
+            size 0.01 0.1912 0.01
+          }
+        }
+      ]
+      name "sideleft_aluminium"
+      boundingObject USE sideleft_aluminium
+      physics Physics {
+      }
+    }
+    Solid {
+      translation 0.202 -0.1209 0.045
+      rotation 0 0 1 -0.98262
+      children [
+        DEF sideright_aluminium Shape {
+          appearance PBRAppearance {
+            baseColor 0.466667 0.462745 0.482353
+            roughness 1
+            metalness 0
+          }
+          geometry Box {
+            size 0.01 0.1912 0.01
+          }
+        }
+      ]
+      name "sideright_aluminium"
+      boundingObject USE sideright_aluminium
+      physics Physics {
+      }
+    }
+    Solid {
+      translation 0.125 0 0.045
+      children [
+        DEF front_aluminium Shape {
+          appearance PBRAppearance {
+            baseColor 0.466667 0.462745 0.482353
+            roughness 1
+            metalness 0
+          }
+          geometry Box {
+            size 0.01 0.35 0.01
+          }
+        }
+      ]
+      name "front_aluminium"
+      boundingObject USE front_aluminium
+      physics Physics {
+      }
+    }
     InertialUnit {
       translation 0 0 0.065
       children [

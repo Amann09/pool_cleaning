@@ -10,6 +10,13 @@ import random
 class Turn(Enum):
     CLOCKWISE = auto()
     ANTI_CLOCKWISE = auto()
+    
+class Hit(Enum):
+    FRONT = auto()
+    RIGHT = auto()
+    LEFT = auto()
+    FRONT_RIGHT = auto()
+    FRONT_LEFT = auto()
 
 # create the Robot instance.
 robot = Robot()
@@ -56,6 +63,33 @@ side_left_distance_sensor.enable(timestep)
 # Inertial Unit
 imu = robot.getDevice('inertial unit')
 imu.enable(timestep)
+
+def sign():
+    while robot.step(timestep) != -1:
+        front_value = front_distance_sensor.getValue()
+        side_right_value = side_right_distance_sensor.getValue()
+        side_left_value = side_left_distance_sensor.getValue()
+        
+        print(f"Angles\n(Front, Right, Left) -> ({front_value}, {side_right_value}, {side_left_value})")
+        print(' ')
+        
+        if front_value < 0.5 and side_right_value < 0.5:
+            hit = Hit.FRONT_RIGHT 
+            print(f"hit: {hit}")
+        elif front_value < 0.5 and side_left_value < 0.5:
+            hit = Hit.FRONT_LEFT
+            print(f"hit: {hit}")
+        elif front_value < 0.5:
+            hit = Hit.FRONT
+            print(f"hit: {hit}")
+            
+        if hit == Hit.FRONT_RIGHT:
+            return -1
+        elif hit == Hit.FRONT_LEFT:
+            return +1
+        elif hit == Hit.FRONT:
+            return +1
+
 
 def rotate(theta):
     if theta > 0:
@@ -125,6 +159,7 @@ def rotate(theta):
             if 0 <= abs(reading - endpointLEFT) <= 10:
                print("Turning Left complete")
                forward()
+
 def stop():
 
     left_speed = 0
@@ -152,7 +187,7 @@ def forward():
         right_speed = max_speed
         
         if front_value < safe_distance:
-            angles = [15, 30, 45, 60, 75, 90]
+            angles = [15, 30, 45, 60, 75, 90, 180]
             random.shuffle(angles)
             for angle in angles:
                 # x = random.choice([1, 2, 3, 4, 5, 6, 7, 8, 9, 10])
@@ -161,18 +196,19 @@ def forward():
                 # else:
                     # rotate(-angle)
                     
-                if side_right_value < safe_distance-0.1:
-                    print("Turning Left")
-                    rotate(-angle)
-                elif side_left_value < safe_distance-0.1:
-                    print("Turning Right")
-                    rotate(angle)
-                else:
-                    x = random.choice([-1, 1])
-                    print("Turning {x}")
-                    rotate(x * angle)
-                    
-                # rotate(angle) 
+                # if side_right_value < safe_distance-0.1:
+                #     print("Turning Left")
+                #     rotate(-angle)
+                # elif side_left_value < safe_distance-0.1:
+                #     print("Turning Right")
+                #     rotate(angle)
+                # else:
+                #     x = random.choice([-1, 1])
+                #     print("Turning {x}")
+                #     rotate(x * angle)
+
+                x = sign()
+                rotate(x*angle)
 
 
             
@@ -201,6 +237,15 @@ def forward():
         back_right_motor.setVelocity(right_speed)
         back_left_motor.setVelocity(left_speed)
 
+def forward_test():
+    left_speed = max_speed
+    right_speed = max_speed
+    
+    front_right_motor.setVelocity(right_speed)
+    front_left_motor.setVelocity(left_speed)
+        
+    back_right_motor.setVelocity(right_speed)
+    back_left_motor.setVelocity(left_speed)
     
 
 # Main loop:
